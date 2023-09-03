@@ -1,0 +1,44 @@
+package com.velocity.ajay.ecommerce.product.admin;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public class AdminLogin {
+
+	public void getAdminLoginDetails() throws SQLException {
+		
+		System.out.println("Enter the username>>");
+		Scanner scanner=new Scanner(System.in);
+		String userName=scanner.next();
+		System.out.println("Enter the password>>");
+		String password=scanner.next();
+		
+		ConnectionAdmin connectionAdmin=new ConnectionAdmin();
+		Connection connection=connectionAdmin.getConnection();
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet=null;
+		try {
+			 preparedStatement=connection.prepareStatement("select username,password from adminregister where password=?");
+			preparedStatement.setString(1, userName);
+			preparedStatement.setString(2, password);
+			 
+			resultSet=preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				String databasePassword=resultSet.getString("password");
+				if(databasePassword.equals(password)) {
+					System.out.println("Admin Login Successfull.....");
+				}else {
+					System.err.println("Admin Login Unsuccessfull, Please check again username & password......");
+				}
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+		}
+	}
+}

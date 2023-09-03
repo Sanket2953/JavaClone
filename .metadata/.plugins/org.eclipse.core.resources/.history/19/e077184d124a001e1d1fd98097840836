@@ -1,0 +1,12 @@
+package com.velocity.ajay.ecommerce.product.admin;
+
+import java.util.Scanner;
+
+public class AdminLogin {
+
+	public void getAdminLoginDetails() {
+		
+		System.out.println("Enter the username");
+		Scanner scanner=new Scanner(System.in);
+	}
+}
